@@ -90,7 +90,7 @@ Records IP addresses for restricting multiple votes from the same IP.
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/voting-site-reactjs-php.git
+   git clone https://github.com/mohdnazzal/votingsite-reactjs-php.git
    cd voting-site-reactjs-php
 
 # Voting Site
