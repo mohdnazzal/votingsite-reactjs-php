@@ -1,0 +1,52 @@
+/* Styles for screens wider than 899px */
+@media screen and (min-width: 899px) {
+    /* Hide horizontal line on larger screens */
+    .hr-line {
+        display: none;
+    }
+
+    /* Styling for the login container on larger screens */
+    .container-md.logincontainer {
+        width: 500px; /* Sets a fixed width for the login container */
+        height: 550px; /* Sets a fixed height */
+        background-color: #ffffff; /* White background color */
+        border-color: #838383; /* Light gray border color */
+        border-radius: 1px; /* Slight rounding of the border edges */
+        border-width: 1px; /* Sets border thickness */
+        border-style: groove; /* Adds a grooved border style */
+        margin-top: 100px;
+    }
+
+
+
+}
+
+/* Styles for screens between 401px and 899px */
+@media screen and (min-width: 401px) and (max-width: 899px) {
+    /* Styles for demo button on smaller screens */
+    .demo-btn {
+        display: block; /* Makes the demo button a block-level element */
+        justify-self: center; /* Centers the button horizontally */
+        margin-bottom: 15px; /* Adds space below the button */
+        padding-right: 100px; /* Adds padding on the right */
+        padding-left: 100px; /* Adds padding on the left */
+    }
+
+    /* Styles for feature card */
+    .feature-card {
+        display: contents; /* Inherits content styling without adding a box */
+        margin: 0px; /* Removes any margin */
+    }
+
+    /* Displays horizontal line on smaller screens */
+    .hr-line {
+        display: block;
+    }
+
+    /* Styles for reverse image alignment */
+    .reverse-img {
+        display: flex; /* Uses flexbox for alignment */
+        justify-self: center; /* Centers image horizontally */
+        margin: auto; /* Centers image both horizontally and vertically */
+    }
+}

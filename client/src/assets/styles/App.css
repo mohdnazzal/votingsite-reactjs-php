@@ -1,0 +1,52 @@
+/* Container for the root element */
+#root {
+  max-width: 1280px;       /* Sets the maximum width of the container to avoid excessive stretching on larger screens */
+  margin: 0 auto;          /* Centers the container horizontally within the page */
+  padding: 2rem;           /* Adds 2rem padding inside the container to create space around content */
+  text-align: center;      /* Centers all text within the container */
+}
+
+/* Style for the logo */
+.logo {
+  height: 6em;             /* Sets a fixed height of 6em for the logo */
+  padding: 1.5em;          /* Adds padding around the logo to give it some space */
+  will-change: filter;     /* Optimizes performance by hinting that the filter property may change */
+  transition: filter 300ms; /* Adds a smooth 300ms transition effect for filter changes */
+}
+
+/* Style for logo on hover with a default color */
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa); /* Adds a soft blue drop shadow effect on hover */
+}
+
+/* Style for logo on hover with React-specific color */
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa); /* Applies a React-themed drop shadow on hover */
+}
+
+/* Animation keyframes for spinning the logo */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);   /* Starts at 0 degrees, pointing in its original position */
+  }
+  to {
+    transform: rotate(360deg); /* Completes a full 360-degree rotation */
+  }
+}
+
+/* Applies spinning animation to the second link's logo when reduced motion is not preferred */
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear; /* Sets the logo to spin indefinitely with a 20s duration */
+  }
+}
+
+/* Style for card elements */
+.card {
+  padding: 2em;               /* Adds 2em padding inside each card for spacing */
+}
+
+/* Style for 'read-the-docs' text */
+.read-the-docs {
+  color: #888;               /* Sets a gray color to differentiate the 'read-the-docs' text */
+}
