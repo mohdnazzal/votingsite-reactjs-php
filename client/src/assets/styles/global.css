@@ -1,0 +1,33 @@
+/* Style for the 404 error page (when a page is not found) */
+.error404 {
+  margin: auto; /* Centers the error message horizontally and vertically within its container */
+}
+
+/* Style for centering images */
+.center-img {
+  display: block;          /* Makes the image act as a block element, allowing vertical centering */
+  margin-left: auto;       /* Centers the image horizontally within its container */
+  margin-right: auto;      /* Centers the image horizontally within its container */
+}
+
+/* Style for input fields */
+.input {
+  display: block;          /* Ensures input fields take up the full width of their container */
+  padding: 5px;            /* Adds padding inside the input for better text spacing */
+  margin: 5px;             /* Adds margin around the input to separate it from surrounding elements */
+}
+
+/* Style for option buttons */
+.options-btn {
+  border-radius: 10px;               /* Rounds the corners of the button for a softer look */
+  border-color: cornflowerblue;      /* Sets a border color using a visually appealing blue shade */
+  display: block;                    /* Makes the button a block-level element */
+  height: 40px;                      /* Sets the button height */
+  width: 250px;                      /* Sets a fixed width for the button */
+  margin: auto;                      /* Centers the button horizontally within its container */
+}
+
+/* Hover effect for option buttons */
+.options-btn:hover {
+  background-color: rgb(228, 228, 228); /* Changes the background to light gray when hovering */
+}
