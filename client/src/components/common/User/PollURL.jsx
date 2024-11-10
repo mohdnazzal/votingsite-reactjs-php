@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react"; // React hooks for state and effect
-import { useParams } from "react-router-dom"; // To access URL parameters
-import axios from "axios"; // Axios for HTTP requests
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import "../../../assets/styles/pollURL.css";
 
 export default function PollURL() {
-  const { pollId } = useParams(); // Extract pollId from URL parameters
-  const [pollData, setPollData] = useState(null); // State to store poll data
-  const [error, setError] = useState(null); // State to handle errors
-  const [successMessage, setSuccessMessage] = useState(null); // State for success messages
-  const [voted, setVoted] = useState(false); // State to check if the user has voted
+  const { pollId } = useParams();
+  const [pollData, setPollData] = useState(null);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [voted, setVoted] = useState(false);
+  const [voteCounts, setVoteCounts] = useState(null);
 
-  // Convert expiryDate to ISO format if pollData exists
   const expiryDateStr = pollData?.settings?.expiryDate;
   let expiryDate = expiryDateStr ? new Date(expiryDateStr.replace(" ", "T")) : null;
 
-  // Effect to fetch poll data
   useEffect(() => {
     const fetchPollData = async () => {
       try {
@@ -28,15 +28,29 @@ export default function PollURL() {
       }
     };
 
+    // Check if the user has previously voted
     const hasVoted = localStorage.getItem(`voted_${pollId}`);
-    setVoted(Boolean(hasVoted)); // Check if the user has already voted
-    fetchPollData(); // Fetch poll data
+    const voteOncePerIPEnabled = localStorage.getItem(`voteOncePerIP_${pollId}`) === "true";
+
+    // Set voted based on conditions
+    setVoted(Boolean(hasVoted && voteOncePerIPEnabled));
+    fetchPollData();
   }, [pollId]);
 
-  // Function to handle voting
+  const fetchVoteCounts = async () => {
+    try {
+      const response = await axios.get(`https://web1002.web.portfolios.mknazzal.com/server/GetVoteCounts.php?pollId=${pollData.id}`);
+      if (response.data.success && response.data.voteCounts) {
+        setVoteCounts(response.data.voteCounts);
+      }
+    } catch (err) {
+      setError("Could not fetch vote counts. " + err.message);
+    }
+  };
+
   const handleVote = async (answer) => {
     if (voted && pollData.settings.voteOncePerIP) {
-      setError("You have already voted on this poll."); // Prevent multiple votes
+      setError("You have already voted on this poll.");
       return;
     }
 
@@ -47,10 +61,14 @@ export default function PollURL() {
         answer
       });
       if (response.data.success) {
-        localStorage.setItem(`voted_${pollId}`, true); // Mark the poll as voted in local storage
+        if (pollData.settings.voteOncePerIP) {
+          localStorage.setItem(`voted_${pollId}`, true);
+          localStorage.setItem(`voteOncePerIP_${pollId}`, pollData.settings.voteOncePerIP);
+        }
         setVoted(true);
         setSuccessMessage("Thank you for voting!");
         setError(null);
+        fetchVoteCounts(); // Fetch vote counts after voting
       } else {
         setError(response.data.message || "Failed to submit vote. Please try again.");
       }
@@ -59,34 +77,40 @@ export default function PollURL() {
     }
   };
 
-  // Render loading or error state
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
-  if (!pollData) return <p>Loading...</p>;
+  useEffect(() => {
+    if (voted) {
+      fetchVoteCounts();
+    }
+  }, [voted]);
+
+  if (error) return <div className="alert alert-danger text-center">{error}</div>;
+  if (!pollData) return <div className="text-center text-light">Loading...</div>;
 
   return (
-    <div>
-      {((voted && pollData.settings.voteOncePerIP) || (new Date() > expiryDate)) ? (
-        <h3 className="text-center">Thank you for voting!</h3> // Thank you message after voting
-      ) : (
-      <div>
-        <h2 className="text-center">{pollData.title}</h2>
-        <p className="text-center">{pollData.description}</p>
-        <hr />
-        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>} {/* Display success message */}
-        <ul>
-          {pollData.answers && pollData.answers.map((answer, index) => (
-            <button 
-              className="btn options-btn" 
-              key={index} 
-              onClick={() => handleVote(answer)} // Handle vote on button click
-              disabled={(voted && pollData.settings.voteOncePerIP) || (new Date() > expiryDate)} // Disable if already voted or expired
-            >
-              {answer}
-            </button>
-          ))}
-        </ul>
+    <div className="container my-5">
+      <div className="card poll-card shadow-lg">
+        <div className="card-body">
+          {successMessage && (
+            <div className="alert alert-success text-center">{successMessage}</div>
+          )}
+          <h2 className="text-center poll-title">{pollData.title}</h2>
+          <p className="text-center poll-description">{pollData.description}</p>
+          <hr className="divider" />
+
+          <div className="d-flex flex-column gap-3 align-items-center">
+            {pollData.answers && pollData.answers.map((answer, index) => (
+              <button 
+                className="btn poll-option-button" 
+                key={index} 
+                onClick={() => handleVote(answer)}
+                disabled={voted || (new Date() > expiryDate)}
+              >
+                {answer} {voted && voteCounts && `(${voteCounts[`option${index + 1}Count`] || 0} votes)`}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
-      )}
     </div>
   );
 }

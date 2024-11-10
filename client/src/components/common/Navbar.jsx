@@ -1,6 +1,6 @@
 export default function Navbar() {
   // Check if the user is logged in by retrieving the value from localStorage
-  const isLoggedIn = localStorage.getItem("is_login") === "true";
+  const isLoggedIn = localStorage.getItem("is_login");
 
   return (
     <>

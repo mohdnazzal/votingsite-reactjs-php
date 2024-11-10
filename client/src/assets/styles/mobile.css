@@ -16,6 +16,15 @@
         border-style: groove; /* Adds a grooved border style */
         margin-top: 100px;
     }
+    .feature-card {
+        background-color: rgb(246, 246, 246);
+        border: none;
+    }
+    .feature-title {
+        background-color: rgb(24, 24, 24);
+        color:rgb(239, 239, 239);
+        padding: 8px;
+    }
 
 
 
@@ -48,5 +57,10 @@
         display: flex; /* Uses flexbox for alignment */
         justify-self: center; /* Centers image horizontally */
         margin: auto; /* Centers image both horizontally and vertically */
+    }
+    .feature-title {
+        background-color: rgb(24, 24, 24);
+        color:rgb(239, 239, 239);
+        padding: 8px;
     }
 }

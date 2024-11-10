@@ -1,0 +1,116 @@
+/* pollURL.css */
+
+/* General styling for the poll card */
+.poll-card {
+    background-color: #333333; /* Dark background */
+    color: #f2f2f2; /* Light text */
+    border: none;
+    border-radius: 15px;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Poll title styling */
+  .poll-title {
+    font-weight: 700;
+    color: #f2f2f2;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Poll description styling */
+  .poll-description {
+    color: #d1d1d1;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Thank-you message styling */
+  .thank-you-message {
+    color: #4caf50;
+    font-weight: bold;
+    animation: fadeIn 0.6s ease;
+  }
+  
+  /* Poll option button styling */
+  .poll-option-button {
+    background-color: #333; /* Dark gray */
+    color: #f2f2f2; /* Light text */
+    border: 2px solid #0dbfff; /* Accent color */
+    border-radius: 25px;
+    padding: 0.7rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background-color 0.4s, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .poll-option-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(-100%);
+    transition: transform 0.4s;
+  }
+  
+  .poll-option-button:hover::after {
+    transform: translateX(0%);
+  }
+  
+  .poll-option-button:hover {
+    background-color: #444;
+    color: #fff;
+    transform: translateY(-3px);
+  }
+  
+  .poll-option-button:disabled {
+    background-color: #555;
+    color: #999;
+    cursor: not-allowed;
+    border-color: #999;
+  }
+  
+  /* Divider styling */
+  .divider {
+    border-top: 1px solid #0dbfff;
+    margin: 1.5rem 0;
+  }
+  
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .poll-card {
+      padding: 1.5rem;
+    }
+  
+    .poll-title {
+      font-size: 1.6rem;
+    }
+  
+    .poll-description {
+      font-size: 1rem;
+    }
+  
+    .poll-option-button {
+      font-size: 1rem;
+      padding: 0.6rem 1.5rem;
+    }
+  
+    .thank-you-message {
+      font-size: 1.2rem;
+    }
+  }
+  

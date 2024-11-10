@@ -30,6 +30,9 @@ export default function MainPage() {
                 <div className='col-12'>
                   <div className="container py-5">
                     <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+                    <br></br>
+                    <br></br>
+
                     <div id="home" className="row align-items-center">
                       <Card
                         myClass1="col-md-3 text-center"
@@ -46,6 +49,10 @@ export default function MainPage() {
                     <hr className='hr-line'></hr>
                     <div className="row align-items-center text-center" style={{margin:"auto 0px", padding:"0px"}}>
                       <h2 id="features" className='text-center'>Features</h2>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+
                       <div className="col-md-4 text-center">
                           <FeatureCard
                             title="Poll Customization"
@@ -67,8 +74,40 @@ export default function MainPage() {
                             text="Implements measures like CAPTCHA, IP restrictions, and email verification to ensure fair voting."
                          />
                       </div>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+
+                      <div className="col-md-4 text-center">
+                          <FeatureCard
+                            title="Dashboard"
+                            imageUrl={Feature1}
+                            text="Provides an intuitive overview of poll performance, user engagement, and recent activity, giving you easy access to all essential features."
+                            />
+                      </div>
+                      <div className="col-md-4 text-center">
+                          <FeatureCard
+                            title="Advanced Analytics"
+                            imageUrl={Feature2}
+                            text="Delivers in-depth insights into voting patterns, real-time vote counts, user demographics, and trends, helping you understand your audience and optimize polls."
+                         />
+                      </div>
+                      <div className="col-md-4 text-center">
+                          <FeatureCard
+                            title="Simplified"
+                            imageUrl= {Feature3}
+                            text="A seamless and user-friendly voting process, designed to encourage participation and maximize engagement with minimal effort."
+                         />
+                      </div>
                     </div>
                     <hr className='hr-line'></hr>
+                    <br></br>
+                    <br></br>
                     <div id="cases" className="row align-items-center">
                       <h6 className='text-center'>Trusted by Over 100,000 Users WorldWide</h6>
                       <div className="col-md-4 text-center">

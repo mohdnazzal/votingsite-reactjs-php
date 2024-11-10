@@ -10,10 +10,10 @@ const RegisterForm = () => {
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState(""); // "success" or "danger"
 
-  // Function to generate random alphanumeric string
+  // Function to generate random alphanumeric string for captcha
   const generateCaptcha = () => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
     for (let i = 0; i < 6; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -31,7 +31,14 @@ const RegisterForm = () => {
     if (userInput !== captchaValue) {
       setMessage("Captcha does not match. Please try again.");
       setMessageType("danger");
-      generateCaptcha(); // Generate a new captcha
+      generateCaptcha();
+      return;
+    }
+
+    // Validate email format (basic validation)
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setMessage("Please enter a valid email.");
+      setMessageType("danger");
       return;
     }
 
@@ -50,6 +57,7 @@ const RegisterForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // Include cookies for CORS
         body: JSON.stringify(userData),
       });
 
@@ -58,15 +66,17 @@ const RegisterForm = () => {
       if (result.success) {
         setMessage("Registration successful.");
         setMessageType("success");
-        window.location.href = "/auth/login"; 
 
-
+        // Redirect after successful registration
+        setTimeout(() => {
+          window.location.href = "/auth/login";
+        }, 1000);
       } else {
         setMessage(result.message || "Registration failed.");
         setMessageType("danger");
       }
     } catch (error) {
-      setMessage(error + " ,an error occurred while processing your request.");
+      setMessage("An error occurred while processing your request." + error);
       setMessageType("danger");
     }
   };
@@ -77,12 +87,14 @@ const RegisterForm = () => {
         <div className="row">
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="exampleFormControlInput1" className="form-label">Name</label>
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
               <input
                 type="text"
                 name="name"
                 className="form-control"
-                id="exampleFormControlInput1"
+                id="name"
                 placeholder="John Doe"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -92,12 +104,14 @@ const RegisterForm = () => {
           </div>
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="exampleFormControlInput2" className="form-label">Username</label>
+              <label htmlFor="username" className="form-label">
+                Username
+              </label>
               <input
                 type="text"
                 name="username"
                 className="form-control"
-                id="exampleFormControlInput2"
+                id="username"
                 placeholder="John123"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -109,12 +123,14 @@ const RegisterForm = () => {
         <div className="row">
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="exampleFormControlInput3" className="form-label">Email address</label>
+              <label htmlFor="email" className="form-label">
+                Email address
+              </label>
               <input
                 type="email"
                 name="email"
                 className="form-control"
-                id="exampleFormControlInput3"
+                id="email"
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -124,13 +140,14 @@ const RegisterForm = () => {
           </div>
           <div className="col-6">
             <div className="mb-3">
-              <label htmlFor="inputPassword5" className="form-label">Password</label>
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
-                id="inputPassword5"
+                id="password"
                 className="form-control"
-                aria-describedby="passwordHelpBlock"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -140,7 +157,12 @@ const RegisterForm = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="captcha" className="form-label">Captcha: <span style={{color:"#f53b57", fontWeight:"bold"}}>{captchaValue}</span></label>
+          <label htmlFor="captcha" className="form-label">
+            Captcha:{" "}
+            <span style={{ color: "#f53b57", fontWeight: "bold" }}>
+              {captchaValue}
+            </span>
+          </label>
           <br />
           <input
             type="text"
@@ -150,11 +172,12 @@ const RegisterForm = () => {
             required
           />
         </div>
-        
-        <button type="submit" className="btn btn-primary">Register</button>
+
+        <button type="submit" className="btn btn-primary">
+          Register
+        </button>
       </form>
 
-      {/* Display message */}
       {message && (
         <div className={`alert alert-${messageType} mt-3`} role="alert">
           {message}
@@ -163,10 +186,10 @@ const RegisterForm = () => {
 
       <hr />
       <div>
-        <a href='/auth/login'>Already Registered? Login Here</a>
+        <a href="/auth/login">Already Registered? Login Here</a>
       </div>
       <div>
-        <a href='/'>Homepage</a>
+        <a href="/">Homepage</a>
       </div>
     </div>
   );
